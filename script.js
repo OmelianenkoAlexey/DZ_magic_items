@@ -2701,8 +2701,38 @@ function createNewMagicItem() {
     const description = document.getElementById("description").value;
     // ! создаем объект с нашими введенными данными
     const newItem = { name, type, quality, description };
+
+    // проверяеи на наличие в ключа newMagicItems в хранилище и записываем в переменную
+    const dataToSet = getDataFromLocalStorage("newMagicItems") ?
+        // если он существует скичиваем его и добавляем в массив новый элемент
+        [...getDataFromLocalStorage("newMagicItems"), newItem]
+        // если не существует записываем в массив только новый элемент
+        : [newItem];
+
     // ! в основной массив вставляем новый созданный объект В НАЧАЛЕ
     magicItems.unshift(newItem);
+
     // ! запускаем функцию для отображения всех карточек, включая новую
     renderMagicItems(magicItems);
+
+    // отправляем данные на сервер
+    setDataToLocalStorage("newMagicItems", dataToSet);
+};
+
+// ! функция отправляет данные на сервер
+function setDataToLocalStorage(key, data) {
+    // преобразовуем наши данные в строку
+    const toStrData = JSON.stringify(data);
+    // записываем наши данные в хранилище localStorage
+    localStorage.setItem(key, toStrData);
+};
+
+// ! функция получает данные с сервера
+function getDataFromLocalStorage(key) {
+    return JSON.parse(localStorage.getItem(key));
 }
+
+
+
+// setDataToLocalStorage("magicItems", magicItems);
+// console.log(getDataFromLocalStorage("magicItems"));
