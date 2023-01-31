@@ -2609,11 +2609,12 @@ let magicItems = [
     }
 ];
 
-// создаем основной контейнер
+// ! создаем основной контейнер
 const innerDiv = document.querySelector(".item-container");
 const search = document.getElementById("search");
 const crete = document.getElementById("create");
 const close = document.getElementById("close");
+const add = document.getElementById("add");
 
 function renderMagicItems(magicItems) {
     innerDiv.innerHTML = "";
@@ -2665,7 +2666,6 @@ search.addEventListener("input", () => {
 
 renderMagicItems(magicItems);
 
-
 // ! функция, которая выключает или включает display-none (метод toggle работает как переключатель)
 function toggleElement() {
     const modal = document.querySelector(".modal-container");
@@ -2675,15 +2675,16 @@ function toggleElement() {
 crete.addEventListener("click", () => {
     // ! вызываем функцию, которая выключает display-none
     toggleElement();
+});
 
-    const add = document.getElementById("add");
-    // ! в модальном окне при нажатии на кнопку add (добавить) 
-    add.addEventListener("click", () => {
-        // ! вызывает функцию для создания новой карточки
-        createNewMagicItem();
-        // ! включает display-none 
-        toggleElement();
-    })
+
+
+// ! в модальном окне при нажатии на кнопку add (добавить) 
+add.addEventListener("click", () => {
+    // ! вызывает функцию для создания новой карточки
+    createNewMagicItem();
+    // ! включает display-none 
+    toggleElement();
 });
 
 // ! в модальном окне при нажатии на кнопку закрыть
