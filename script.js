@@ -2623,7 +2623,7 @@ getDataFromLocalStorage("newMagicItems") && getDataFromLocalStorage("newMagicIte
 if (getDataFromLocalStorage("deleteId")) {
     // перезаписываем в переменную только те элементы, id которых нет в удаленных
     magicItems = magicItems.filter(item => !getDataFromLocalStorage("deleteId").includes(item.id));
-}
+};
 
 // ! создаем основной контейнер
 const innerDiv = document.querySelector(".item-container");
