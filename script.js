@@ -2609,15 +2609,21 @@ let magicItems = [
     }
 ];
 // ! перед загрузкой страницы запушиваем в начало массива наши новые элементы с хранилища перебором массива
-if (getDataFromLocalStorage("newMagicItems")) {
-    getDataFromLocalStorage("newMagicItems").forEach(item => {
-        magicItems.unshift(item);
-    });
+// способ 1
+// if (getDataFromLocalStorage("newMagicItems")) {
+//     getDataFromLocalStorage("newMagicItems").forEach(item => {
+//         magicItems.unshift(item);
+//     });
+// }
+// способ 2
+getDataFromLocalStorage("newMagicItems") && getDataFromLocalStorage("newMagicItems").forEach(item => {
+    magicItems.unshift(item);
+});
+
+if (getDataFromLocalStorage("deleteId")) {
+    // перезаписываем в переменную только те элементы, id которых нет в удаленных
+    magicItems = magicItems.filter(item => !getDataFromLocalStorage("deleteId").includes(item.id));
 }
-
-
-
-// console.log(getDataFromLocalStorage("newMagicItems"));
 
 // ! создаем основной контейнер
 const innerDiv = document.querySelector(".item-container");
@@ -2642,14 +2648,17 @@ function renderMagicItems(magicItems) {
         const deleteImage = document.createElement("img");
         deleteImage.src = "image/delete.svg";
         deleteImage.classList.add("delete");
+        // добавляем ко всем div свой id
+        div.id = item.id;
 
         deleteImage.addEventListener("click", () => {
-            // const dataId = getDataFromLocalStorage("deleteId") ?
-            //     [...getDataFromLocalStorage("deleteId"), item.id]
-            //     : [item.id];
-            console.log(item.id);
-
-            // setDataToLocalStorage("deleteId", dataId);
+            const dataId = getDataFromLocalStorage("deleteId") ?
+                [...getDataFromLocalStorage("deleteId"), item.id]
+                : [item.id];
+            // отправляем этот id на сервер
+            setDataToLocalStorage("deleteId", dataId);
+            // по id ищем елемент и удаляем его
+            document.getElementById(item.id).remove();
         })
 
         // ! даем названия классов
