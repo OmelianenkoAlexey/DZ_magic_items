@@ -2608,6 +2608,12 @@ let magicItems = [
         "id": "f94c9edb26a211cc0e31120bed17d52f4aa1583a"
     }
 ];
+// ! перед загрузкой страницы запушиваем в начало массива наши новые элементы с хранилища перебором массива
+getDataFromLocalStorage("newMagicItems").forEach(item => {
+    magicItems.unshift(item);
+});
+
+// console.log(getDataFromLocalStorage("newMagicItems"));
 
 // ! создаем основной контейнер
 const innerDiv = document.querySelector(".item-container");
@@ -2629,6 +2635,10 @@ function renderMagicItems(magicItems) {
         const type = document.createElement("p");
         const quality = document.createElement("p");
 
+        const deleteImage = document.createElement("img");
+        deleteImage.src = "image/delete.svg";
+        deleteImage.classList.add("delete");
+
         // ! даем названия классов
         div.classList.add("card");
         divRight.classList.add("card-right");
@@ -2649,6 +2659,7 @@ function renderMagicItems(magicItems) {
         // ! в карточку вставляем левый и правый блоки
         div.append(divLeft);
         div.append(divRight);
+        div.append(deleteImage);
         // ! в основновной контейнер вставляем саму карточку
         innerDiv.append(div);
     })
@@ -2699,8 +2710,13 @@ function createNewMagicItem() {
     const type = document.getElementById("type").value;
     const quality = document.getElementById("quality").value;
     const description = document.getElementById("description").value;
+    // ! создаем рандомный id
+    const id = Math.floor(Math.random() * 1000000000000);
+
+    console.log(id);
+
     // ! создаем объект с нашими введенными данными
-    const newItem = { name, type, quality, description };
+    const newItem = { name, type, quality, description, id };
 
     // проверяеи на наличие в ключа newMagicItems в хранилище и записываем в переменную
     const dataToSet = getDataFromLocalStorage("newMagicItems") ?

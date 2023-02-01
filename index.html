@@ -25,6 +25,7 @@
 			border-radius: 10px;
 			display: flex;
 			align-items: start;
+			position: relative;
 		}
 
 		.card-right {
@@ -35,6 +36,7 @@
 
 		header {
 			position: fixed;
+			z-index: 2;
 			top: 0;
 			left: 0;
 			height: 100px;
@@ -44,6 +46,7 @@
 			display: flex;
 			justify-content: flex-end;
 			align-items: center;
+
 		}
 
 		#search,
@@ -107,6 +110,13 @@
 
 		.d-none {
 			display: none;
+		}
+
+		.delete {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			width: 30px;
 		}
 	</style>
 	<title>Magic Items</title>
