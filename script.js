@@ -2609,9 +2609,13 @@ let magicItems = [
     }
 ];
 // ! перед загрузкой страницы запушиваем в начало массива наши новые элементы с хранилища перебором массива
-getDataFromLocalStorage("newMagicItems").forEach(item => {
-    magicItems.unshift(item);
-});
+if (getDataFromLocalStorage("newMagicItems")) {
+    getDataFromLocalStorage("newMagicItems").forEach(item => {
+        magicItems.unshift(item);
+    });
+}
+
+
 
 // console.log(getDataFromLocalStorage("newMagicItems"));
 
@@ -2638,6 +2642,15 @@ function renderMagicItems(magicItems) {
         const deleteImage = document.createElement("img");
         deleteImage.src = "image/delete.svg";
         deleteImage.classList.add("delete");
+
+        deleteImage.addEventListener("click", () => {
+            // const dataId = getDataFromLocalStorage("deleteId") ?
+            //     [...getDataFromLocalStorage("deleteId"), item.id]
+            //     : [item.id];
+            console.log(item.id);
+
+            // setDataToLocalStorage("deleteId", dataId);
+        })
 
         // ! даем названия классов
         div.classList.add("card");
